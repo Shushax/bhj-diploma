@@ -4,40 +4,42 @@
  * */
 const createRequest = (options = {}) => {
     let errorCritical;
-    let xhrEnd;
     if (options.method === 'GET') {
         let xhr = new XMLHttpRequest();
         try {
-            xhr.open('GET', `${options.url}?mail=${options.data.mail}&password=${options.data.password}`);
+            xhr.open('GET', options.url);
             xhr.withCredentials = true;
+            xhr.responseType = options.responseType;
             xhr.send(); 
-            xhrEnd = xhr;
         } catch (e) {
             errorCritical = e;
+            options.callback(erorrCritical, xhr.response);
         }
     } else {
         let xhr = new XMLHttpRequest();
         let formData = new FormData();
+        
+        for (let option in data) {
+            formData.append(`${option}`, options.data[option]);
+        }
 
-        formData.append('mail', options.data.mail);
-        formData.append('password', options.data.password);
         try {
             xhr.open('POST', options.url);
             xhr.withCredentials = true;
+            xhr.responseType = options.responseType;
             xhr.send(formData);
-            xhrEnd = xhr;
         } catch (e) {
             errorCritical = e;
+            options.callback(erorrCritical, xhr.response);
         }
     }
-    // что делать с options.callback??
+    
     xhr.onloadend = function() {
-        if (xhr.status === 200) {
+        if (xhr.status === 200 && xhr.response.success == true) {
             options.callback(erorrCritical, xhr.response);
         } else {
             options.callback(errorCritical, xhr.response);
         }
     }
-    return xhrEnd;
     
 };

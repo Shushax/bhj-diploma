@@ -3,16 +3,15 @@
  * Имеет свойство URL, равно пустой строке.
  * */
 class Entity {
-  constructor() {
-    this.URL = '';
-  }
+  static URL = '';
+  
   /**
    * Запрашивает с сервера список данных.
    * Это могут быть счета или доходы/расходы
    * (в зависимости от того, что наследуется от Entity)
    * */
   static list( data, callback = f => f ) {
-    createRequest(data);
+    createRequest(data, url, headers, method, callback);
   }
 
   /**
@@ -24,7 +23,7 @@ class Entity {
     let modifiedData = Object.assign({
       _method: 'PUT',
     }, data);
-    createRequest(modifiedData);
+    createRequest(modifiedData, url, headers, method, callback);
   }
 
   /**
@@ -32,7 +31,7 @@ class Entity {
    * (в зависимости от того, что наследуется от Entity)
    * */
   static get( id = '', data, callback = f => f ) {
-    createRequest(data);
+    createRequest(data, url, headers, method, callback);
   }
 
   /**
@@ -44,7 +43,7 @@ class Entity {
       _method: 'DELETE',
       id: id
     }, data);
-    createRequest(modifiedData);
+    createRequest(modifiedData, url, headers, method, callback);
   }
 }
 
