@@ -19,7 +19,7 @@ const createRequest = (options = {}) => {
         let xhr = new XMLHttpRequest();
         let formData = new FormData();
         
-        for (let option in data) {
+        for (let option in options.data) {
             formData.append(`${option}`, options.data[option]);
         }
 
