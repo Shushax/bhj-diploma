@@ -4,20 +4,18 @@
  * */
 const createRequest = (options = {}) => {
     let errorCritical;
+    let xhr = new XMLHttpRequest();
+    let formData = new FormData();
     if (options.method === 'GET') {
-        let xhr = new XMLHttpRequest();
         try {
             xhr.open('GET', options.url);
             xhr.withCredentials = true;
-            xhr.responseType = options.responseType;
-            xhr.send(); 
+            xhr.responseType = options.responseType; 
         } catch (e) {
             errorCritical = e;
             options.callback(erorrCritical, xhr.response);
         }
     } else {
-        let xhr = new XMLHttpRequest();
-        let formData = new FormData();
         
         for (let option in options.data) {
             formData.append(`${option}`, options.data[option]);
@@ -27,12 +25,13 @@ const createRequest = (options = {}) => {
             xhr.open('POST', options.url);
             xhr.withCredentials = true;
             xhr.responseType = options.responseType;
-            xhr.send(formData);
         } catch (e) {
             errorCritical = e;
             options.callback(erorrCritical, xhr.response);
         }
     }
+
+    xhr.send(formData);
     
     xhr.onloadend = function() {
         if (xhr.status === 200 && xhr.response.success == true) {

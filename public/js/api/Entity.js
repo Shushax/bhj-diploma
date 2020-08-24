@@ -10,8 +10,9 @@ class Entity {
    * Это могут быть счета или доходы/расходы
    * (в зависимости от того, что наследуется от Entity)
    * */
-  static list( data, callback = f => f ) {
-    createRequest(data, url, headers, method, callback);
+  static list( data, callback = ( err, response ) => console.log("err: ", err, " response: ", response) ) {
+    let options = {data: data, url: `${this.URL}`, method: `${method}`, responseType, callback: callback};
+    createRequest(options);
   }
 
   /**
@@ -19,31 +20,34 @@ class Entity {
    * на сервер. (в зависимости от того,
    * что наследуется от Entity)
    * */
-  static create( data, callback = f => f ) {
+  static create( data, callback = ( err, response ) => console.log("err: ", err, " response: ", response) ) {
     let modifiedData = Object.assign({
       _method: 'PUT',
     }, data);
-    createRequest(modifiedData, url, headers, method, callback);
+    let options = {data: modifiedData, url: `${this.URL}`, method: `${method}`, responseType, callback: callback};
+    createRequest(options);
   }
 
   /**
    * Получает информацию о счёте или доходе/расходе
    * (в зависимости от того, что наследуется от Entity)
    * */
-  static get( id = '', data, callback = f => f ) {
-    createRequest(data, url, headers, method, callback);
+  static get( id = '', data, callback = ( err, response ) => console.log("err: ", err, " response: ", response)) {
+    let options = {data: data, url: `${this.URL}/${id}`, method: `${method}`, responseType, callback: callback};
+    createRequest(options);
   }
 
   /**
    * Удаляет информацию о счёте или доходе/расходе
    * (в зависимости от того, что наследуется от Entity)
    * */
-  static remove( id = '', data, callback = f => f ) {
+  static remove( id = '', data, callback = ( err, response ) => console.log("err: ", err, " response: ", response) ) {
     let modifiedData = Object.assign({
       _method: 'DELETE',
       id: id
     }, data);
-    createRequest(modifiedData, url, headers, method, callback);
+    let options = {data: modifiedData, url: `${this.URL}/${id}`, method: `${method}`, responseType, callback: callback};
+    createRequest(options);
   }
 }
 
