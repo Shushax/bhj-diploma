@@ -33,14 +33,14 @@ class User {
    * Получает информацию о текущем
    * авторизованном пользователе.
    * */
-  static fetch( data, callback = (xhr) => {
-    if (xhr.response.success == true) {
+  static fetch( data, callback = () => {
+    if (createRequest()) {
       User.setCurrent(xhr.response.user);
     } else {
       User.unsetCurrent(xhr.response.user);
     }
   }) {
-    let options = {data: data, url: `/user/current`, method: `GET`, responseType: 'json', callback: callback};
+    let options = {data: data, url: `/current`, method: `GET`, responseType: 'json', callback: callback};
     createRequest(options);
     }
 
@@ -50,12 +50,12 @@ class User {
    * сохранить пользователя через метод
    * User.setCurrent.
    * */
-  static login (data, callback = (xhr) => {
-    if (xhr.response.success == true) {
+  static login (data, callback = () => {
+    if (createRequest()) {
       User.setCurrent(xhr.response.user);
     }
   }) {
-    let options = {data: data, url: `/user/login`, method: `POST`, responseType: 'json', callback: callback};
+    let options = {data: data, url: `${this.URL}/login`, method: `POST`, responseType: 'json', callback: callback};
     createRequest(options);
   }
 
@@ -65,12 +65,12 @@ class User {
    * сохранить пользователя через метод
    * User.setCurrent.
    * */
-  static register( data, callback = (xhr) => {
-    if (xhr.response.success == true) {
+  static register( data, callback = () => {
+    if (createRequest()) {
       User.setCurrent(xhr.response.user);
-     }
+    }
   }) {
-    let options = {data: data, url: `/user/register`, method: `POST`, responseType: 'json', callback: callback};
+    let options = {data: data, url: `/register`, method: `POST`, responseType: 'json', callback: callback};
     createRequest(options);
   }
   
@@ -79,12 +79,12 @@ class User {
    * Производит выход из приложения. После успешного
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
-  static logout( data, callback = (xhr) => {
-    if (xhr.response.success == true) {
+  static logout( data, callback = () => {
+    if (createRequest()) {
       User.unsetCurrent();
      }
   }) {
-    let options = {data: data, url: `/user/logout`, method: `POST`, responseType: 'json', callback: callback};
+    let options = {data: data, url: `/logout`, method: `POST`, responseType: 'json', callback: callback};
     createRequest(options);
   }
 }
