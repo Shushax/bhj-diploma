@@ -40,7 +40,7 @@ class User {
       User.unsetCurrent();
     }
   }) {
-    let options = {data: data, url: `/current`, method: `GET`, responseType: 'json', callback: callback};
+    let options = {data: data, url: `http://localhost:8000${this.URL}/current`, method: `GET`, responseType: 'json', callback: callback};
     createRequest(options);
     }
 
@@ -55,7 +55,7 @@ class User {
       User.setCurrent(response.user);
     }
   }) {
-    let options = {data: data, url: `${this.URL}/login`, method: `POST`, responseType: 'json', callback: callback};
+    let options = {data: data, url: `http://localhost:8000${this.URL}/login`, method: `POST`, responseType: 'json', callback: callback};
     createRequest(options);
   }
 
@@ -70,7 +70,7 @@ class User {
       User.setCurrent(response.user);
     }
   }) {
-    let options = {data: data, url: `/register`, method: `POST`, responseType: 'json', callback: callback};
+    let options = {data: data, url: `http://localhost:8000${this.URL}/register`, method: `POST`, responseType: 'json', callback: callback};
     createRequest(options);
   }
   
@@ -84,7 +84,7 @@ class User {
       User.unsetCurrent();
      }
   }) {
-    let options = {data: data, url: `/logout`, method: `POST`, responseType: 'json', callback: callback};
+    let options = {data: data, url: `http://localhost:8000${this.URL}/logout`, method: `POST`, responseType: 'json', callback: callback};
     createRequest(options);
   }
 }

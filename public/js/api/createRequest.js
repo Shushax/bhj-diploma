@@ -13,6 +13,7 @@ const createRequest = (options = {}) => {
             xhr.open(options.method, options.url);
             xhr.withCredentials = true;
             xhr.responseType = options.responseType; 
+            errorCritical = null;
         } catch (e) {
             errorCritical = e;
             options.callback(erorrCritical, xhr.response);
@@ -36,7 +37,7 @@ const createRequest = (options = {}) => {
     
     xhr.onloadend = function() {
         if (xhr.status === 200 && xhr.response.success == true) {
-            options.callback(erorrCritical, xhr.response);
+            options.callback(errorCritical, xhr.response);
             return true;
         } else {
             options.callback(errorCritical, xhr.response);
