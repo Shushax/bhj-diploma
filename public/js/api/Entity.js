@@ -11,7 +11,7 @@ class Entity {
    * (в зависимости от того, что наследуется от Entity)
    * */
   static list( data, callback = ( err, response ) => console.log("err: ", err, " response: ", response) ) {
-    let options = {data: data, url: `${this.URL}`, method: `${method}`, responseType, callback: callback};
+    let options = {data: data, url: `${this.URL}`, method: `GET`, responseType: 'json', callback: callback};
     createRequest(options);
   }
 
@@ -24,7 +24,7 @@ class Entity {
     let modifiedData = Object.assign({
       _method: 'PUT',
     }, data);
-    let options = {data: modifiedData, url: `${this.URL}`, method: `${method}`, responseType, callback: callback};
+    let options = {data: modifiedData, url: `${this.URL}`, method: `POST`, responseType: 'json', callback: callback};
     createRequest(options);
   }
 
@@ -33,7 +33,7 @@ class Entity {
    * (в зависимости от того, что наследуется от Entity)
    * */
   static get( id = '', data, callback = ( err, response ) => console.log("err: ", err, " response: ", response)) {
-    let options = {data: data, url: `${this.URL}/${id}`, method: `${method}`, responseType, callback: callback};
+    let options = {data: data, url: `${this.URL}/${id}`, method: `GET`, responseType: 'json', callback: callback};
     createRequest(options);
   }
 
@@ -46,7 +46,7 @@ class Entity {
       _method: 'DELETE',
       id: id
     }, data);
-    let options = {data: modifiedData, url: `${this.URL}/${id}`, method: `${method}`, responseType, callback: callback};
+    let options = {data: modifiedData, url: `${this.URL}/${id}`, method: `POST`, responseType: 'json', callback: callback};
     createRequest(options);
   }
 }
