@@ -33,11 +33,11 @@ class User {
    * Получает информацию о текущем
    * авторизованном пользователе.
    * */
-  static fetch( data, callback = () => {
-    if (createRequest()) {
-      User.setCurrent(xhr.response.user);
+  static fetch( data, callback = (err, response) => {
+    if (response.success == true) {
+      User.setCurrent(response.user);
     } else {
-      User.unsetCurrent(xhr.response.user);
+      User.unsetCurrent();
     }
   }) {
     let options = {data: data, url: `/current`, method: `GET`, responseType: 'json', callback: callback};
@@ -50,9 +50,9 @@ class User {
    * сохранить пользователя через метод
    * User.setCurrent.
    * */
-  static login (data, callback = () => {
-    if (createRequest()) {
-      User.setCurrent(xhr.response.user);
+  static login (data, callback = (err, response) => {
+    if (response.success == true) {
+      User.setCurrent(response.user);
     }
   }) {
     let options = {data: data, url: `${this.URL}/login`, method: `POST`, responseType: 'json', callback: callback};
@@ -65,9 +65,9 @@ class User {
    * сохранить пользователя через метод
    * User.setCurrent.
    * */
-  static register( data, callback = () => {
-    if (createRequest()) {
-      User.setCurrent(xhr.response.user);
+  static register( data, callback = (err, response) => {
+    if (response.success == true) {
+      User.setCurrent(response.user);
     }
   }) {
     let options = {data: data, url: `/register`, method: `POST`, responseType: 'json', callback: callback};
@@ -79,8 +79,8 @@ class User {
    * Производит выход из приложения. После успешного
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
-  static logout( data, callback = () => {
-    if (createRequest()) {
+  static logout( data, callback = (err, response) => {
+    if (response.success) {
       User.unsetCurrent();
      }
   }) {
