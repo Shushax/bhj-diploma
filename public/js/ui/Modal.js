@@ -13,10 +13,10 @@ class Modal {
    * необходимо выкинуть ошибку.
    * */
   constructor( element ) {
-    this.element = element;
-    if (element == null || element == undefined) {
+    if (!element) {
       throw new Error('Ошибка! Пустой элемент');
     }
+    this.element = element;
     this.registerEvents();
   }
 
@@ -27,13 +27,9 @@ class Modal {
    * */
   registerEvents() {
     let searchElements = document.querySelectorAll("[data-dismiss='modal']"); 
-    
-    function close() {
-      this.onClose(elem);
-    }
 
     for (let elem of searchElements) {
-      elem.addEventListener('click', close);
+      elem.addEventListener('click', () => this.onClose(elem));
     }
   }
 
@@ -51,7 +47,7 @@ class Modal {
     let searchElements = document.querySelectorAll("[data-dismiss='modal']"); 
 
     for (let elem of searchElements) {
-      elem.removeEventListener('click', close);
+      elem.removeEventListener('click', () => this.onClose(elem));
     }
   }
   /**

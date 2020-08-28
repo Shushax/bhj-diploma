@@ -26,7 +26,9 @@ class User {
    * из локального хранилища
    * */
   static current() {
-    return JSON.parse(localStorage.user);
+    if (localStorage.user) {
+      return JSON.parse(localStorage.user);
+    }
   }
 
   /**
@@ -56,7 +58,7 @@ class User {
       if (response.success == true) {
         User.setCurrent(response.user);
       }
-      callback(err, response);
+      callback (err, response);
     }};
     createRequest(options);
   }
