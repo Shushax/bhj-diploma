@@ -33,14 +33,15 @@ class User {
    * Получает информацию о текущем
    * авторизованном пользователе.
    * */
-  static fetch( data, callback = (err, response) => {
-    if (response.success == true) {
-      User.setCurrent(response.user);
-    } else {
-      User.unsetCurrent();
-    }
-  }) {
-    let options = {data: data, url: `http://localhost:8000${this.URL}/current`, method: `GET`, responseType: 'json', callback: callback};
+  static fetch( data, callback = f => f) {
+    let options = {data: data, url: `${this.URL}/current`, method: `GET`, responseType: 'json', callback: (err, response) => {
+      if (response.success == true) {
+        User.setCurrent(response.user);
+      } else {
+        User.unsetCurrent();
+      }
+      callback(err, response);
+    }};
     createRequest(options);
     }
 
@@ -50,12 +51,13 @@ class User {
    * сохранить пользователя через метод
    * User.setCurrent.
    * */
-  static login (data, callback = (err, response) => {
-    if (response.success == true) {
-      User.setCurrent(response.user);
-    }
-  }) {
-    let options = {data: data, url: `http://localhost:8000${this.URL}/login`, method: `POST`, responseType: 'json', callback: callback};
+  static login (data, callback = f => f) {
+    let options = {data: data, url: `${this.URL}/login`, method: `POST`, responseType: 'json', callback: (err, response) => {
+      if (response.success == true) {
+        User.setCurrent(response.user);
+      }
+      callback(err, response);
+    }};
     createRequest(options);
   }
 
@@ -65,12 +67,13 @@ class User {
    * сохранить пользователя через метод
    * User.setCurrent.
    * */
-  static register( data, callback = (err, response) => {
-    if (response.success == true) {
-      User.setCurrent(response.user);
-    }
-  }) {
-    let options = {data: data, url: `http://localhost:8000${this.URL}/register`, method: `POST`, responseType: 'json', callback: callback};
+  static register( data, callback = f => f) {
+    let options = {data: data, url: `${this.URL}/register`, method: `POST`, responseType: 'json', callback: (err, response) => {
+      if (response.success == true) {
+        User.setCurrent(response.user);
+      }
+      callback(err, response);
+    }};
     createRequest(options);
   }
   
@@ -79,12 +82,13 @@ class User {
    * Производит выход из приложения. После успешного
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
-  static logout( data, callback = (err, response) => {
-    if (response.success) {
-      User.unsetCurrent();
-     }
-  }) {
-    let options = {data: data, url: `http://localhost:8000${this.URL}/logout`, method: `POST`, responseType: 'json', callback: callback};
+  static logout( data, callback = f => f) {
+    let options = {data: data, url: `${this.URL}/logout`, method: `POST`, responseType: 'json', callback: (err, response) => {
+      if (response.success) {
+        User.unsetCurrent();
+       }
+       callback(err, response);
+    }};
     createRequest(options);
   }
 }
