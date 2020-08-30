@@ -26,7 +26,10 @@ class User {
    * из локального хранилища
    * */
   static current() {
-    if (localStorage.user) {
+    let obj = {};
+    if (!localStorage.user) {
+      return obj;
+    } else {
       return JSON.parse(localStorage.user);
     }
   }
@@ -36,9 +39,7 @@ class User {
    * авторизованном пользователе.
    * */
   static fetch( data, callback = f => f) {
-    if (!data) {
-      data = {};
-    }
+
     let options = {data: data, url: `${this.URL}/current`, method: `GET`, responseType: 'json', callback: (err, response) => {
       if (response.success == true) {
         User.setCurrent(response.user);
