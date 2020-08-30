@@ -36,6 +36,9 @@ class User {
    * авторизованном пользователе.
    * */
   static fetch( data, callback = f => f) {
+    if (!data) {
+      data = {};
+    }
     let options = {data: data, url: `${this.URL}/current`, method: `GET`, responseType: 'json', callback: (err, response) => {
       if (response.success == true) {
         User.setCurrent(response.user);

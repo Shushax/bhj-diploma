@@ -45,8 +45,6 @@ class AsyncForm {
     for (let option of formData.elements) {
       obj[option.name] = option.value;
     }
-
-    let json = JSON.stringify(obj);
   }
 
   onSubmit( options ) {
@@ -59,6 +57,6 @@ class AsyncForm {
    * */
   submit() {
     let data = {data: this.getData()};
-    let jsonData = JSON.stringify(data);
-    this.onSubmit(jsonData);
+    this.onSubmit(data.data()); // data.data or data.data()??
+  }
 }
