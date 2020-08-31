@@ -11,5 +11,11 @@ class RegisterForm {
    * и закрывает окно, в котором находится форма
    * */
   onSubmit( options ) {
+    let form = document.getElementById('register-form');
+    let btn = document.getElementsByClassName('btn-primary');
+    User.register(options, () => callback = f => f);
+    form.reset();
+    App.setState('user-logged');
+    Modal.onСlose(form);
   }
 }
