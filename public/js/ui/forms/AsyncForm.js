@@ -25,7 +25,7 @@ class AsyncForm {
    * вызывает метод submit()
    * */
   registerEvents() {
-    this.element.onsubmit = function() {
+    this.element.onsubmit = function(e) {
       e.preventDefault();
       this.submit();
     }

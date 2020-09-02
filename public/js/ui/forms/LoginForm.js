@@ -11,6 +11,11 @@ class LoginForm {
    * закрывает окно, в котором находится форма
    * */
   onSubmit( options ) {
-
+    let form = document.getElementById('login-form');
+    User.login(options, () => {
+      form.reset();
+      App.setState( 'user-logged' );
+      Modal.onClose();
+    })
   }
 }

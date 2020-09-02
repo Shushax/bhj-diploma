@@ -37,8 +37,8 @@ class Modal {
    * Срабатывает после нажатия на элементы, закрывающие окно.
    * Закрывает текущее окно (Modal.close())
    * */
-  onClose( e ) {
-    e.close();
+  onClose() {
+    this.close();
   }
   /**
    * Удаляет обработчики событий
@@ -47,7 +47,7 @@ class Modal {
     let searchElements = document.querySelectorAll("[data-dismiss='modal']"); 
 
     for (let elem of searchElements) {
-      elem.removeEventListener('click', () => this.onClose(elem));
+      elem.removeEventListener('click', () => this.onClose());
     }
   }
   /**
