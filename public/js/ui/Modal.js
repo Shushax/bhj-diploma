@@ -38,7 +38,7 @@ class Modal {
    * Закрывает текущее окно (Modal.close())
    * */
   onClose() {
-    this.close();
+   this.close();
   }
   /**
    * Удаляет обработчики событий
