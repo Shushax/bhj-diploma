@@ -6,6 +6,14 @@
       "password": "demo",
       "id": "1",
       "isAuthorized": true
+    },
+    {
+      "id": "a066anwkem0b1nc",
+      "isAuthorized": true
+    },
+    {
+      "id": "a066aeckem0ck76",
+      "isAuthorized": true
     }
   ],
   "accounts": [
