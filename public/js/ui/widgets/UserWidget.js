@@ -25,10 +25,10 @@ class UserWidget {
    * авторизованного пользователя
    * */
   update() {
-    User.current();
-    if (App.setState('user-logged')) {
+    if (User.current()) {
+      let user = User.current();
       let name = document.getElementsByClassName('user-name');
-      name[0].textContent = 
+      name.textContent = user.name;
     }
   }
 }
