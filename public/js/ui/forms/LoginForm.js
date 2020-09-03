@@ -16,7 +16,8 @@ class LoginForm extends AsyncForm {
     User.login(options, () => {
       form.reset();
       App.setState('user-logged');
-      Modal.close(); // ??? как это написать?
+      let modal = App.getModal('login'); 
+      modal.close();
     })
   }
 }

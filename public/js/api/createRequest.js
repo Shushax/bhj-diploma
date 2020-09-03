@@ -7,10 +7,6 @@ const createRequest = (options = {}) => {
     let xhr = new XMLHttpRequest();
     let formData = new FormData();
 
-    if (options.data === undefined) {
-        options.data = {};
-    }
-
     if (options.method === 'GET') {
 
         options.url += `?`

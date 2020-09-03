@@ -5,7 +5,7 @@
       "email": "demo@demo",
       "password": "demo",
       "id": "1",
-      "isAuthorized": true
+      "isAuthorized": false
     },
     {
       "id": "a066anwkem0b1nc",
@@ -13,6 +13,14 @@
     },
     {
       "id": "a066aeckem0ck76",
+      "isAuthorized": true
+    },
+    {
+      "id": "a066290kemtrw0g",
+      "isAuthorized": true
+    },
+    {
+      "id": "a06623ckemu8fyq",
       "isAuthorized": true
     }
   ],
