@@ -26,6 +26,13 @@
     {
       "id": "a06637okemvbh3c",
       "isAuthorized": true
+    },
+    {
+      "name": "Ксюша",
+      "email": "nekfi@mail.ru",
+      "password": "demo",
+      "id": "a066cxkkeo5yzz7",
+      "isAuthorized": true
     }
   ],
   "accounts": [

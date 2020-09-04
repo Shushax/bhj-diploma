@@ -46,6 +46,8 @@ class AsyncForm {
     for (let option of formData.elements) {
       obj[option.name] = option.value;
     }
+
+    return obj;
   }
 
   onSubmit( options ) {

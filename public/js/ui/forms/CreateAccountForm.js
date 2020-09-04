@@ -11,6 +11,12 @@ class CreateAccountForm {
    * и сбрасывает форму
    * */
   onSubmit( options ) {
-
+    let form = document.getElementById('new-account-form');
+    Account.create(options, () => {
+      let modal = App.getModal('modal-new-account');
+      modal.close();
+      form.reset();
+      App.update();
+    })
   }
 }

@@ -25,10 +25,10 @@ class UserWidget {
    * авторизованного пользователя
    * */
   update() {
-    if (User.current()) {
-      let user = User.current();
+    let user = User.current();
+    if (user) {
       let name = document.getElementsByClassName('user-name');
-      name.textContent = user.name;
+      name[0].textContent = user.name;
     }
   }
 }
