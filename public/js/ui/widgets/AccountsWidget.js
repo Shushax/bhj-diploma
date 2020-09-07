@@ -29,10 +29,13 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
-    let btn = document.getElementsByClassName('create-account');
-    btn[0].onclick = function() {
-      let modal = App.getModal('newAccount');
-      modal.open();
+    let btn = this.element.getElementsByClassName('create-account');
+    btn[0].onclick = function(e) {
+      let el = e.target;
+      if (el.closest('[data-modal-id="newAccount"]')) {
+        let modal = App.getModal('newAccount');
+        modal.open();
+      }
     }
   }
 
