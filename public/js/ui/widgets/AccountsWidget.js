@@ -29,10 +29,8 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
-    let btn = this.element.getElementsByClassName('create-account');
-    btn[0].onclick = function(e) {
-      let el = e.target;
-      if (el.closest('[data-modal-id="newAccount"]')) {
+    this.element.onclick = function(e) {
+      if (e.target.closest('.create-account')) {
         let modal = App.getModal('newAccount');
         modal.open();
       }
