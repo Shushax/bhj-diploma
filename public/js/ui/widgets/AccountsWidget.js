@@ -31,8 +31,10 @@ class AccountsWidget {
   registerEvents() {
     this.element.onclick = function(e) {
       if (e.target.closest('.create-account')) {
-        let modal = App.getModal('newAccount');
+        let modal = App.getModal('createAccount');
         modal.open();
+      } else if (e.target.closest('.account')) {
+        this.onSelectAccount(e.target);
       }
     }
   }
@@ -48,7 +50,12 @@ class AccountsWidget {
    * метода renderItem()
    * */
   update() {
-
+    if (User.current()) {
+        let array = Account.list(User.current(), () => {
+          this.clear();
+      });
+      this.renderItem(array);
+    }
   }
 
   /**
@@ -57,7 +64,10 @@ class AccountsWidget {
    * в боковой колонке
    * */
   clear() {
-
+    let accounts = this.element.querySelectorAll('.account');
+    for (account of accounts) {
+      account.remove();
+    }
   }
 
   /**
@@ -68,7 +78,9 @@ class AccountsWidget {
    * Вызывает App.showPage( 'transactions', { account_id: id_счёта });
    * */
   onSelectAccount( element ) {
-
+    let last = this.element.querySelector('.active');
+    last.classList.remove('active');
+    element.classList.add('active');
   }
 
   /**
@@ -77,7 +89,12 @@ class AccountsWidget {
    * item - объект с данными о счёте
    * */
   getAccountHTML( item ) {
-
+    let elem = document.createElement('li');
+    elem.classList.add('active');
+    elem.classList.add('account');
+    elem.dataset.id = item.id;
+    elem.innerHTML = `a href="#"><span>${item.name}</span><span>${item.sum} ₽</span></a>`
+    return elem;
   }
 
   /**
@@ -87,6 +104,9 @@ class AccountsWidget {
    * и добавляет его внутрь элемента виджета
    * */
   renderItem( item ) {
-
+    for (elem in item) {
+      let readyElem = this.getAccountHTML(elem);
+      this.element.insertAdjacentElement(afterBegin, readyElem);
+    }
   }
 }
