@@ -50,8 +50,9 @@ class AccountsWidget {
    * метода renderItem()
    * */
   update() {
-    if (User.current()) {
-        let array = Account.list(User.current(), () => {
+    let user = User.current();
+    if (user) {
+        let array = Account.list(user, () => {
           this.clear();
       });
       this.renderItem(array);
