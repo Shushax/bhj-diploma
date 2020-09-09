@@ -52,10 +52,10 @@ class AccountsWidget {
   update() {
     let user = User.current();
     if (user) {
-        let array = Account.list(user, () => {
-          this.clear();
+      Account.list(user, (err, response) => {
+        this.clear();
+        this.renderItem(response.data)
       });
-      this.renderItem(array);
     }
   }
 
@@ -66,7 +66,7 @@ class AccountsWidget {
    * */
   clear() {
     let accounts = this.element.querySelectorAll('.account');
-    for (account of accounts) {
+    for (let account of accounts) {
       account.remove();
     }
   }
@@ -94,7 +94,7 @@ class AccountsWidget {
     elem.classList.add('active');
     elem.classList.add('account');
     elem.dataset.id = item.id;
-    elem.innerHTML = `a href="#"><span>${item.name}</span><span>${item.sum} ₽</span></a>`
+    elem.innerHTML = `<a href="#"><span>${item.name}</span><span>${item.sum} ₽</span></a>`
     return elem;
   }
 
@@ -105,9 +105,9 @@ class AccountsWidget {
    * и добавляет его внутрь элемента виджета
    * */
   renderItem( item ) {
-    for (elem in item) {
+    for (let elem of item) {
       let readyElem = this.getAccountHTML(elem);
-      this.element.insertAdjacentElement(afterBegin, readyElem);
+      this.element.insertAdjacentElement('afterBegin', readyElem);
     }
   }
 }
