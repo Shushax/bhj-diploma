@@ -29,7 +29,8 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
-    this.element.onclick = function(e) {
+    
+    this.element.onclick = (e) => {
       if (e.target.closest('.create-account')) {
         let modal = App.getModal('createAccount');
         modal.open();
@@ -38,6 +39,7 @@ class AccountsWidget {
       }
     }
   }
+
 
   /**
    * Метод доступен только авторизованным пользователям
@@ -80,8 +82,12 @@ class AccountsWidget {
    * */
   onSelectAccount( element ) {
     let last = this.element.querySelector('.active');
-    last.classList.remove('active');
+    if (last) {
+      last.classList.remove('active');
+    }
     element.classList.add('active');
+    let user = User.current();
+    App.showPage('transactions', {account_id: user.id});
   }
 
   /**
@@ -91,10 +97,9 @@ class AccountsWidget {
    * */
   getAccountHTML( item ) {
     let elem = document.createElement('li');
-    elem.classList.add('active');
     elem.classList.add('account');
     elem.dataset.id = item.id;
-    elem.innerHTML = `<a href="#"><span>${item.name}</span><span>${item.sum} ₽</span></a>`
+    elem.innerHTML = `<a href="#"><span>${item.name} / ${item.sum} ₽</span></a>`;
     return elem;
   }
 
@@ -107,7 +112,7 @@ class AccountsWidget {
   renderItem( item ) {
     for (let elem of item) {
       let readyElem = this.getAccountHTML(elem);
-      this.element.insertAdjacentElement('afterBegin', readyElem);
+      this.element.insertAdjacentElement('beforeEnd', readyElem);
     }
   }
 }
