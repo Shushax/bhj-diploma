@@ -85,7 +85,8 @@ class AccountsWidget {
     if (last) {
       last.classList.remove('active');
     }
-    element.classList.add('active');
+    let account = element.closest('.account');
+    account.classList.add('active');
     let user = User.current();
     App.showPage('transactions', {account_id: user.id});
   }
