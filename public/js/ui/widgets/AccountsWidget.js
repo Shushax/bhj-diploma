@@ -88,7 +88,7 @@ class AccountsWidget {
     let account = element.closest('.account');
     account.classList.add('active');
     let user = User.current();
-    App.showPage('transactions', {account_id: user.id});
+    App.showPage('transactions', {account_id: account.dataset.id});
   }
 
   /**

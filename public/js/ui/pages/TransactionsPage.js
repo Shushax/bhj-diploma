@@ -51,7 +51,17 @@ class TransactionsPage {
    * для обновления приложения
    * */
   removeAccount() {
-
+    if (this.lastOptions !== undefined) {
+      if (confirm('Удалить счет?')) {
+        let elem = document.getElementsByClassName('active');
+        if (elem[0]) {
+          Account.remove(elem[0].dataset.id, (err, response) => {
+            console.log(response);
+          })
+        }
+      }
+    }
+    
   }
 
   /**
@@ -78,8 +88,8 @@ class TransactionsPage {
         this.renderTitle(response.data.name);
         console.log(response);
       });
-      Transaction.list(options.account_id, (err, response) => {
-        this.renderTransactions([response.data]);
+      Transaction.list({ account_id: options.account_id }, (err, response) => {
+        this.renderTransactions(response.data);
       });
     }
     
