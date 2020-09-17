@@ -46,7 +46,7 @@ class Entity {
       _method: 'DELETE',
       id: id
     }, data);
-    let options = {data: modifiedData, url: `${this.URL}/${id}`, method: `POST`, responseType: 'json', callback: callback};
+    let options = {data: modifiedData, url: `${this.URL}`, method: `POST`, responseType: 'json', callback: callback};
     createRequest(options);
   }
 }
