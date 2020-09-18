@@ -23,6 +23,7 @@ class CreateTransactionForm extends AsyncForm {
       console.log(response);
       let select = document.getElementsByClassName('accounts-select');
       for (let option of select) {
+        option.innerHTML = '';
           for (let account of response.data) {
             option.innerHTML += `<option value="${account.id}">${account.name}</option>`;
           }

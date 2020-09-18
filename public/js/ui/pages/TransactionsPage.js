@@ -87,7 +87,7 @@ class TransactionsPage {
       throw new Error('Пустой options');
     } else {
       this.lastOptions = options;
-      Account.get(options.account_id, (err, response) => {
+      Account.get(this.lastOptions.account_id, {}, (err, response) => {
         this.renderTitle(response.data.name);
         console.log(response);
       });
@@ -166,11 +166,7 @@ class TransactionsPage {
    * */
   getTransactionHTML( item ) {
     let transactionHTML;
-    if (item.date) {
-      transactionHTML = `<div class="transaction transaction_${item.type} row"><div class="col-md-7 transaction__details"><div class="transaction__icon"><span class="fa fa-money fa-2x"></span></div><div class="transaction__info"><h4 class="transaction__title">${item.name}</h4><div class="transaction__date">${formatDate(item.date)}</div></div></div><div class="col-md-3"><div class="transaction__summ">${item.sum}<span class="currency">₽</span></div></div><div class="col-md-2 transaction__controls"><button class="btn btn-danger transaction__remove" data-id=${item.id}><i class="fa fa-trash"></i></button></div></div>`;
-    } else {
-      transactionHTML = `<div class="transaction transaction_${item.type} row"><div class="col-md-7 transaction__details"><div class="transaction__icon"><span class="fa fa-money fa-2x"></span></div><div class="transaction__info"><h4 class="transaction__title">${item.name}</h4><div class="transaction__date"></div></div></div><div class="col-md-3"><div class="transaction__summ">${item.sum}<span class="currency">₽</span></div></div><div class="col-md-2 transaction__controls"><button class="btn btn-danger transaction__remove" data-id=${item.id}><i class="fa fa-trash"></i></button></div></div>`;
-    }
+    item.date ? transactionHTML = `<div class="transaction transaction_${item.type} row"><div class="col-md-7 transaction__details"><div class="transaction__icon"><span class="fa fa-money fa-2x"></span></div><div class="transaction__info"><h4 class="transaction__title">${item.name}</h4><div class="transaction__date">${formatDate(item.date)}</div></div></div><div class="col-md-3"><div class="transaction__summ">${item.sum}<span class="currency">₽</span></div></div><div class="col-md-2 transaction__controls"><button class="btn btn-danger transaction__remove" data-id=${item.id}><i class="fa fa-trash"></i></button></div></div>` : transactionHTML = `<div class="transaction transaction_${item.type} row"><div class="col-md-7 transaction__details"><div class="transaction__icon"><span class="fa fa-money fa-2x"></span></div><div class="transaction__info"><h4 class="transaction__title">${item.name}</h4><div class="transaction__date"></div></div></div><div class="col-md-3"><div class="transaction__summ">${item.sum}<span class="currency">₽</span></div></div><div class="col-md-2 transaction__controls"><button class="btn btn-danger transaction__remove" data-id=${item.id}><i class="fa fa-trash"></i></button></div></div>`;
     return transactionHTML;
   }
 
@@ -180,6 +176,7 @@ class TransactionsPage {
    * */
   renderTransactions( data ) {
     let content = document.querySelector('.content');
+    content.innerHTML = '';
     for (let obj of data) {
       content.insertAdjacentHTML('beforeEnd', this.getTransactionHTML(obj));
     }
