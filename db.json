@@ -9,7 +9,7 @@
     },
     {
       "id": "a066anwkem0b1nc",
-      "isAuthorized": true
+      "isAuthorized": false
     },
     {
       "id": "a066aeckem0ck76",
@@ -32,6 +32,13 @@
       "email": "nekfi@mail.ru",
       "password": "demo",
       "id": "a066cxkkeo5yzz7",
+      "isAuthorized": true
+    },
+    {
+      "name": "Женя",
+      "email": "pw-dima@mail.ru",
+      "password": "fill123123",
+      "id": "a06687ckfd4wrsd",
       "isAuthorized": true
     }
   ],
@@ -124,59 +131,6 @@
       "sum": 6000,
       "type": "expense",
       "user_id": "1"
-    },
-    {
-      "account_id": "3",
-      "created_at": "2017-12-27 13:27:02",
-      "id": "11",
-      "name": "Прибыль с банка",
-      "sum": 1500000,
-      "type": "income",
-      "user_id": "1"
-    },
-    {
-      "account_id": "3",
-      "created_at": "2018-01-15 13:27:02",
-      "id": "12",
-      "name": "Прибыль с магазина",
-      "sum": 300000,
-      "type": "income",
-      "user_id": "1"
-    },
-    {
-      "account_id": "3",
-      "created_at": "2018-01-15 13:27:02",
-      "id": "13",
-      "name": "Подарок сизого",
-      "sum": 20000,
-      "type": "income",
-      "user_id": "1"
-    },
-    {
-      "account_id": "3",
-      "created_at": "2017-09-15 13:27:02",
-      "id": "14",
-      "name": "На охрану",
-      "sum": 60000,
-      "type": "expense",
-      "user_id": "1"
-    },
-    {
-      "account_id": "3",
-      "created_at": "2017-10-15 13:27:02",
-      "id": "15",
-      "name": "На бумер",
-      "sum": 300000,
-      "type": "expense",
-      "user_id": "1"
-    },
-    {
-      "id": "a06627kkf8k5oza",
-      "type": "EXPENSE",
-      "name": "Сняла деньги",
-      "sum": 500,
-      "account_id": "1",
-      "created_at": "2020-09-18T18:10:04.341Z"
     }
   ]
 }

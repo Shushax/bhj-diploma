@@ -20,7 +20,6 @@ class CreateTransactionForm extends AsyncForm {
   renderAccountsList() {
     let user = User.current();
     Account.list(user, (err, response) => {
-      console.log(response);
       let select = document.getElementsByClassName('accounts-select');
       for (let option of select) {
         option.innerHTML = '';
@@ -39,10 +38,8 @@ class CreateTransactionForm extends AsyncForm {
    * */
   onSubmit( options ) {
     Transaction.create(options, (err, response) => {
-      let modalIncome = App.getModal('newIncome');
-      let modalExpense = App.getModal('newExpense');
-      modalIncome.close();
-      modalExpense.close();
+      App.getModal('newIncome').close();
+      App.getModal('newExpense').close();
       App.update();
     })
   }

@@ -23,11 +23,9 @@ class TransactionsWidget {
   registerEvents() {
     this.element.onclick = (e) => {
       if (e.target.closest('.create-income-button')) {
-        let modal = App.getModal('newIncome');
-        modal.open();
+        App.getModal('newIncome').open();
       } else if (e.target.closest('.create-expense-button')) {
-        let modal = App.getModal('newExpense');
-        modal.open();
+        App.getModal('newExpense').open();
       }
     }
   }

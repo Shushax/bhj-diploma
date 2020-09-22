@@ -51,7 +51,7 @@ class TransactionsPage {
    * для обновления приложения
    * */
   removeAccount() {
-    if (this.lastOptions !== undefined) {
+    if (this.lastOptions) {
       if (confirm('Удалить счет?')) {
         Account.remove(this.lastOptions.account_id, {}, (err, response) => {
           App.update();
@@ -70,7 +70,6 @@ class TransactionsPage {
   removeTransaction( id ) {
     if (confirm('Вы действительно хотите удалить транзакцию?')) {
       Transaction.remove(id, {}, (err, response) => {
-        console.log(response);
         App.update();
       })
     }
@@ -89,7 +88,6 @@ class TransactionsPage {
       this.lastOptions = options;
       Account.get(this.lastOptions.account_id, {}, (err, response) => {
         this.renderTitle(response.data.name);
-        console.log(response);
       });
       Transaction.list(options, (err, response) => {
         this.renderTransactions(response.data);
@@ -106,8 +104,7 @@ class TransactionsPage {
    * */
   clear() {
     this.renderTransactions([]);
-    let title = document.querySelector('.content-title');
-    title.textContent = 'Название счета';
+    this.renderTitle('Название счета');
     delete this.lastOptions;
   }
 
@@ -124,39 +121,8 @@ class TransactionsPage {
    * в формат «10 марта 2019 г. в 03:20»
    * */
   formatDate( date ) {
-    let numberOne = date[8];
-    let numberTwo = date[9];
-    let month;
-    
-    
-    if (date[5] == 0 && date[6] == 1) {
-      month = `Января`;
-    } else if (date[5] == 0 && date[6] == 2) {
-      month = `Февраля`;
-    } else if (date[5] == 0 && date[6] == 3) {
-      month = 'Марта';
-    } else if (date[5] == 0 && date[6] == 4) {
-      month = 'Апреля';
-    } else if (date[5] == 0 && date[6] == 5) {
-      month = 'Мая';
-    } else if (date[5] == 0 && date[6] == 6) {
-      month = 'Июня';
-    } else if (date[5] == 0 && date[6] == 7) {
-      month = 'Июля';
-    } else if (date[5] == 0 && date[6] == 8) {
-      month = 'Августа';
-    } else if (date[5] == 0 && date[6] == 9) {
-      month = 'Сентября';
-    } else if (date[5] == 1 && date[6] == 0) {
-      month = 'Октября';
-    } else if (date[5] == 1 && date[6] == 1) {
-      month = 'Ноября';
-    } else if (date[5] == 1 && date[6] == 2) {
-      month = 'Декабря';
-    }
 
-
-    let newDate = `${numberOne}${numberTwo} ${month} ${date[0]}${date[1]}${date[2]}${date[3]} г. в ${date[11]}${date[12]}:${date[13]}${date[14]}`;
+    let newDate = new Intl.DateTimeFormat('ru', {year: 'numeric',month: 'long',day: 'numeric'}).format(date);
     return newDate;
   }
 
@@ -166,7 +132,60 @@ class TransactionsPage {
    * */
   getTransactionHTML( item ) {
     let transactionHTML;
-    item.date ? transactionHTML = `<div class="transaction transaction_${item.type} row"><div class="col-md-7 transaction__details"><div class="transaction__icon"><span class="fa fa-money fa-2x"></span></div><div class="transaction__info"><h4 class="transaction__title">${item.name}</h4><div class="transaction__date">${formatDate(item.date)}</div></div></div><div class="col-md-3"><div class="transaction__summ">${item.sum}<span class="currency">₽</span></div></div><div class="col-md-2 transaction__controls"><button class="btn btn-danger transaction__remove" data-id=${item.id}><i class="fa fa-trash"></i></button></div></div>` : transactionHTML = `<div class="transaction transaction_${item.type} row"><div class="col-md-7 transaction__details"><div class="transaction__icon"><span class="fa fa-money fa-2x"></span></div><div class="transaction__info"><h4 class="transaction__title">${item.name}</h4><div class="transaction__date"></div></div></div><div class="col-md-3"><div class="transaction__summ">${item.sum}<span class="currency">₽</span></div></div><div class="col-md-2 transaction__controls"><button class="btn btn-danger transaction__remove" data-id=${item.id}><i class="fa fa-trash"></i></button></div></div>`;
+    if (item.type == 'INCOME') {
+      item.type = 'income';
+    } else if (item.type == 'EXPENSE') {
+      item.type = 'expense';
+    }
+    item.date ? transactionHTML = `<div class="transaction transaction_${item.type} row">
+                                     <div class="col-md-7 transaction__details">
+                                       <div class="transaction__icon">
+                                         <span class="fa fa-money fa-2x">
+                                         </span>
+                                       </div>
+                                       <div class="transaction__info">
+                                         <h4 class="transaction__title">${item.name}
+                                         </h4>
+                                       <div class="transaction__date">${formatDate(item.date)}
+                                       </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                      <div class="transaction__summ">${item.sum}
+                                        <span class="currency">₽</span>
+                                      </div>
+                                    </div>
+                                    <div class="col-md-2 transaction__controls">
+                                      <button class="btn btn-danger transaction__remove" data-id=${item.id}>
+                                      <i class="fa fa-trash">
+                                      </i>
+                                      </button>
+                                    </div>
+                                  </div>` : transactionHTML = `<div class="transaction transaction_${item.type} row">
+                                                                 <div class="col-md-7 transaction__details">
+                                                                   <div class="transaction__icon">
+                                                                     <span class="fa fa-money fa-2x">
+                                                                     </span>
+                                                                    </div>
+                                                                    <div class="transaction__info">
+                                                                     <h4 class="transaction__title">${item.name}
+                                                                     </h4>
+                                                                    <div class="transaction__date">Когда-то давно
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                            <div class="transaction__summ">${item.sum}
+                                                              <span class="currency">₽</span>
+                                                            </div>
+                                                          </div>
+                                                          <div class="col-md-2 transaction__controls">
+                                                            <button class="btn btn-danger transaction__remove" data-id=${item.id}>
+                                                              <i class="fa fa-trash">
+                                                              </i>
+                                                            </button>
+                                                          </div>
+                                                         </div>`;
     return transactionHTML;
   }
 

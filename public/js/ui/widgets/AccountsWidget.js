@@ -32,8 +32,7 @@ class AccountsWidget {
     
     this.element.onclick = (e) => {
       if (e.target.closest('.create-account')) {
-        let modal = App.getModal('createAccount');
-        modal.open();
+        App.getModal('createAccount').open();
       } else if (e.target.closest('.account')) {
         this.onSelectAccount(e.target);
       }
@@ -87,7 +86,6 @@ class AccountsWidget {
     }
     let account = element.closest('.account');
     account.classList.add('active');
-    let user = User.current();
     App.showPage('transactions', {account_id: account.dataset.id});
   }
 
