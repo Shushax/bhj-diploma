@@ -123,7 +123,9 @@ class TransactionsPage {
   formatDate( date ) {
 
     let newDate = new Intl.DateTimeFormat('ru', {year: 'numeric',month: 'long',day: 'numeric'}).format(date);
-    return newDate;
+    const time = date.toLocaleTimeString('ru', { hour: 'numeric', minute: 'numeric'});
+    let fullDate = newDate + time;
+    return fullDate;
   }
 
   /**
@@ -133,11 +135,11 @@ class TransactionsPage {
   getTransactionHTML( item ) {
     let transactionHTML;
     if (item.type == 'INCOME') {
-      item.type = 'income';
+      item.type = item.type.toLowerCase();
     } else if (item.type == 'EXPENSE') {
-      item.type = 'expense';
+      item.type = item.type.toLowerCase();
     }
-    item.date ? transactionHTML = `<div class="transaction transaction_${item.type} row">
+    transactionHTML = `<div class="transaction transaction_${item.type} row">
                                      <div class="col-md-7 transaction__details">
                                        <div class="transaction__icon">
                                          <span class="fa fa-money fa-2x">
@@ -146,7 +148,7 @@ class TransactionsPage {
                                        <div class="transaction__info">
                                          <h4 class="transaction__title">${item.name}
                                          </h4>
-                                       <div class="transaction__date">${formatDate(item.date)}
+                                       <div class="transaction__date">${item.date ? formatDate(item.date) : "Когда-то давно"}
                                        </div>
                                       </div>
                                     </div>
@@ -161,31 +163,7 @@ class TransactionsPage {
                                       </i>
                                       </button>
                                     </div>
-                                  </div>` : transactionHTML = `<div class="transaction transaction_${item.type} row">
-                                                                 <div class="col-md-7 transaction__details">
-                                                                   <div class="transaction__icon">
-                                                                     <span class="fa fa-money fa-2x">
-                                                                     </span>
-                                                                    </div>
-                                                                    <div class="transaction__info">
-                                                                     <h4 class="transaction__title">${item.name}
-                                                                     </h4>
-                                                                    <div class="transaction__date">Когда-то давно
-                                                                </div>
-                                                              </div>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                            <div class="transaction__summ">${item.sum}
-                                                              <span class="currency">₽</span>
-                                                            </div>
-                                                          </div>
-                                                          <div class="col-md-2 transaction__controls">
-                                                            <button class="btn btn-danger transaction__remove" data-id=${item.id}>
-                                                              <i class="fa fa-trash">
-                                                              </i>
-                                                            </button>
-                                                          </div>
-                                                         </div>`;
+                                  </div>`;
     return transactionHTML;
   }
 
